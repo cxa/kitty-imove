@@ -46,7 +46,7 @@ class MoveWindow(Handler):
         self.cmd.set_line_wrapping(False)
         self.draw_screen()
 
-    def do_move(self, direction: str) -> None:
+    def do_action(self, *action_args: str) -> None:
         if self.rc_fd < 0:
             return
         prefix = [_kitten_exe(), '@']
@@ -59,7 +59,7 @@ class MoveWindow(Handler):
                 os.close(w)
                 prefix += ['--password-file', f'fd:{r}', '--use-password', 'always']
                 pass_fds.append(r)
-            cmd = prefix + ['action', 'move_window', direction]
+            cmd = prefix + ['action'] + list(action_args)
             is_inheritable = os.get_inheritable(self.rc_fd)
             if not is_inheritable:
                 os.set_inheritable(self.rc_fd, True)
@@ -77,7 +77,9 @@ class MoveWindow(Handler):
         text = text.lower()
         directions = {'l': 'left', 'r': 'right', 'u': 'up', 'd': 'down'}
         if text in directions:
-            self.do_move(directions[text])
+            self.do_action('move_window', directions[text])
+        elif text == 't':
+            self.do_action('layout_action', 'rotate')
         elif text == 'q':
             self.quit_loop(0)
 
@@ -100,6 +102,7 @@ class MoveWindow(Handler):
         p('  {}ight'.format(styled('R', fg='green')))
         p('  {}p'.format(styled('U', fg='green')))
         p('  {}own'.format(styled('D', fg='green')))
+        p('  {}ranspose'.format(styled('T', fg='green')))
         p()
         p('Press {} to quit move mode'.format(styled('Esc', italic=True)))
 
