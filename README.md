@@ -1,10 +1,10 @@
 # kitty-imove
 
-Interactive window-moving overlay for [kitty](https://sw.kovidgoyal.net/kitty/), similar to the built-in resize mode (`kitty_mod+r`).
+Interactive window management overlay for [kitty](https://sw.kovidgoyal.net/kitty/), similar to the built-in resize mode (`kitty_mod+r`).
 
 ![screenshot](screenshot.png)
 
-Press a shortcut to open the overlay, then use letter keys to move the active window:
+Press a shortcut to open the overlay, then use letter keys to manipulate the active window:
 
 | Key | Action |
 |-----|--------|
@@ -12,6 +12,7 @@ Press a shortcut to open the overlay, then use letter keys to move the active wi
 | `r` | Move right |
 | `u` | Move up |
 | `d` | Move down |
+| `t` | Transpose (rotate split orientation) |
 | `esc` / `q` | Quit |
 
 ## Requirements
